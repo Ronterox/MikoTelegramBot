@@ -50,6 +50,7 @@ def run(prompt)
 end
 
 users = {}
+filename = "chat#{(rand*100).floor()}.txt"
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
@@ -60,18 +61,21 @@ Telegram::Bot::Client.run(token) do |bot|
       users[id] = chat['result']['first_name'] + " " + chat['result']['last_name']
     end
 
-    puts "#{users[id]}: #{message.text}"
+    userMessage = "> #{users[id]}:\n#{message.text}"
+    puts userMessage
 
     case message.text
     when '/start'
       response = run("Hello Miko! My name is #{users[id]}, is nice to meet you.") + " desu"
-      bot.api.send_message(chat_id: id, text: response)
+      # bot.api.send_message(chat_id: id, text: response)
     else 
-      pre_responses = ["mmm", "eto", "well", "that's", "emm", "you see"]
-      bot.api.send_message(chat_id: id, text: "#{pre_responses.sample}...")
+      # pre_responses = ["mmm", "eto", "well", "that's", "emm", "you see"]
+      # bot.api.send_message(chat_id: id, text: "#{pre_responses.sample}...")
+      
+      File.write(filename, userMessage + "\n", mode: 'a')
 
-      response = run(message.text) + " desu"
-      bot.api.send_message(chat_id: id, text: response)
+      # response = run(message.text) + " desu"
+      # bot.api.send_message(chat_id: id, text: response)
     end
   end
 end
