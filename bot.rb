@@ -1,13 +1,13 @@
 #!/usr/bin/ruby
 require "telegram/bot"
 
-token = "6006007757:AAEXULAh5MdHNR85j1ehi9cVjtVB4nc67yg"
+puts "Starting bot... with API_TOKEN: #{ENV["API_TOKEN"]}"
 
 users = {}
 filename = "chat#{(rand * 100).floor()}.txt"
 messages_count = 0
 
-Telegram::Bot::Client.run(token) do |bot|
+Telegram::Bot::Client.run(ENV["API_TOKEN"]) do |bot|
   bot.listen do |message|
     id = message.chat.id
 

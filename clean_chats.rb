@@ -1,3 +1,4 @@
+#/usr/bin/ruby
 files = Dir.glob("*.txt")
 
 files.each do |file|
