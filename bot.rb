@@ -39,7 +39,7 @@ Telegram::Bot::Client.run(ENV['API_TOKEN']) do |bot|
       File.write(task_file, "#{text}\n\n", mode: 'a')
       bot.api.send_message(chat_id: id, text: 'Task added!')
     elsif text
-      File.write(notes_file, "#{user_message}\n", mode: 'a')
+      File.write(notes_file, "#{user_message}\n\n", mode: 'a')
 
       if (messages_count % 3).zero?
         pre_responses = ['mmm', 'eto', 'well', "that's", 'emm', 'you see']
