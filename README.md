@@ -5,7 +5,9 @@ losing its thoght forever, and
 encraving it on virtual stone. Which is my repo of data*
 
 **Path to completion:**
-- Download all the dependancies on the server, and upload the encrypted API KEY, make it work as in local
+- Download all the dependancies on the server
+- Upload the encrypted API KEY
+- Make it work as in local
 - ...
 - ...
 - ...
