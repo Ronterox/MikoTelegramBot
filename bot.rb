@@ -46,11 +46,12 @@ Telegram::Bot::Client.run(ENV['API_TOKEN']) do |bot|
       response = `anx #{text}`
       bot.api.send_message(chat_id: id, text: response)
     elsif text
+      `cd #{notes_folder} && git pull --rebase`
       notes_file = File.expand_path("#{notes_folder}/chat-#{Time.now.strftime('%Y-%m-%d')}.md")
       File.write(notes_file, "#{user_message}\n\n", mode: 'a')
 
       if (messages_count % 3).zero?
-        `cd #{notes_folder} && printf '\n' | git-magic -ap -m "Miko Notes" && git pull --rebase`
+        `cd #{notes_folder} && printf '\n' | git-magic -ap -m "Miko Notes"`
         pre_responses = ['mmm', 'eto', 'well', "that's", 'emm', 'you see']
         bot.api.send_message(chat_id: id, text: "#{pre_responses.sample}...")
       end
