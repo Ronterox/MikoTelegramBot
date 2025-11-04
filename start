@@ -1,2 +1,8 @@
-. .env
-ruby bot.rb
+#!/usr/bin/env bash
+
+if [ $# -gt 0 ]; then
+    . .env
+    ruby bot.rb
+else
+    nvim .
+fi
