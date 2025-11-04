@@ -12,7 +12,7 @@ def check_command(command)
 end
 
 users = {}
-requirements = %w[fdfind]
+requirements = %w[fdfind git-magic]
 requirements.each { |command| check_command(command) }
 
 notes_folder = `fdfind -1 ANX ~`.chomp
@@ -50,6 +50,7 @@ Telegram::Bot::Client.run(ENV['API_TOKEN']) do |bot|
       File.write(notes_file, "#{user_message}\n\n", mode: 'a')
 
       if (messages_count % 3).zero?
+        `cd #{notes_folder} && git pull --rebase && printf '\n' | git-magic -ap -m "Miko Notes"`
         pre_responses = ['mmm', 'eto', 'well', "that's", 'emm', 'you see']
         bot.api.send_message(chat_id: id, text: "#{pre_responses.sample}...")
       end
