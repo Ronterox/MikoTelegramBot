@@ -12,7 +12,7 @@ def check_command(command)
 end
 
 users = {}
-requirements = %w[fdfind anx]
+requirements = %w[fdfind]
 requirements.each { |command| check_command(command) }
 
 notes_folder = `fdfind -1 ANX ~`.chomp
