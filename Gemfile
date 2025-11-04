@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # gem "rails"
 
-gem "telegram-bot-ruby", "~> 2.0"
+gem 'telegram-bot-ruby', '~> 1.0.0'

@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'telegram/bot'
 
+puts "Telegram bot gem version: #{Telegram::Bot::VERSION}"
 puts "Starting bot... with API_TOKEN ...#{ENV['API_TOKEN'][-10..-1]}"
 
 users = {}
