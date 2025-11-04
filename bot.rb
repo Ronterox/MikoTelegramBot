@@ -2,15 +2,22 @@
 require 'telegram/bot'
 
 puts "Telegram bot gem version: #{Telegram::Bot::VERSION}"
-puts "Starting bot... with API_TOKEN ...#{ENV['API_TOKEN'][-10..-1]}"
+puts "Using API_TOKEN that ends with ...#{ENV['API_TOKEN'][-10..]}"
 
 users = {}
 
-notes_folder = '~/Documents/Projects/MarkdownProjects/ANX'
-notes_file = File.expand_path("#{notes_folder}/chat-#{Time.now.strftime('%Y-%m-%d')}.md")
+if `which fdfind`.empty?
+  puts 'Requires fdfind to be installed'
+  exit 1
+end
 
-task_folder = '~/Documents/Projects/CProjects/fltktimer'
+notes_folder = `fdfind -1 ANX ~`.chomp
+notes_file = File.expand_path("#{notes_folder}/chat-#{Time.now.strftime('%Y-%m-%d')}.md")
+puts "Writing notes to #{notes_file}"
+
+task_folder = `fdfind -1 fltktimer ~`.chomp
 task_file = File.expand_path("#{task_folder}/tasks")
+puts "Writing tasks to #{task_file}"
 
 messages_count = 0
 
