@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'telegram/bot'
 
-puts "Starting bot... with API_TOKEN: #{ENV['API_TOKEN']}"
+puts "Starting bot... with API_TOKEN ...#{ENV['API_TOKEN'][-10..-1]}"
 
 users = {}
 
@@ -47,5 +47,9 @@ Telegram::Bot::Client.run(ENV['API_TOKEN']) do |bot|
       end
       messages_count += 1
     end
+  rescue Telegram::Bot::Exceptions::ResponseError => e
+    puts "Telegram API error: #{e.message}"
+  rescue StandardError => e
+    puts "Unexpected error: #{e.message}"
   end
 end
