@@ -4,20 +4,19 @@ require 'telegram/bot'
 puts "Telegram bot gem version: #{Telegram::Bot::VERSION}"
 puts "Using API_TOKEN that ends with ...#{ENV['API_TOKEN'][-10..]}"
 
-users = {}
+def check_command(command)
+  return unless `which #{command}`.empty?
 
-if `which fdfind`.empty?
-  puts 'Requires fdfind to be installed'
+  puts "Requires #{command} to be installed"
   exit 1
 end
 
-notes_folder = `fdfind -1 ANX ~`.chomp
-notes_file = File.expand_path("#{notes_folder}/chat-#{Time.now.strftime('%Y-%m-%d')}.md")
-puts "Writing notes to #{notes_file}"
+users = {}
+requirements = %w[fdfind anx]
+requirements.each { |command| check_command(command) }
 
-task_folder = `fdfind -1 fltktimer ~`.chomp
-task_file = File.expand_path("#{task_folder}/tasks")
-puts "Writing tasks to #{task_file}"
+notes_folder = `fdfind -1 ANX ~`.chomp
+puts "Writing notes to folder #{notes_folder}"
 
 messages_count = 0
 
@@ -43,10 +42,11 @@ Telegram::Bot::Client.run(ENV['API_TOKEN']) do |bot|
     if text == '/start'
       response = "#{run("Hello Miko! My name is #{users[id]}, is nice to meet you.")} desu"
       bot.api.send_message(chat_id: id, text: response)
-    elsif text.downcase.start_with?('task')
-      File.write(task_file, "#{text}\n\n", mode: 'a')
-      bot.api.send_message(chat_id: id, text: 'Task added!')
+    elsif text.downcase.start_with?('anx')
+      response = `anx #{text}`
+      bot.api.send_message(chat_id: id, text: response)
     elsif text
+      notes_file = File.expand_path("#{notes_folder}/chat-#{Time.now.strftime('%Y-%m-%d')}.md")
       File.write(notes_file, "#{user_message}\n\n", mode: 'a')
 
       if (messages_count % 3).zero?
