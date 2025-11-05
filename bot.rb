@@ -51,7 +51,7 @@ Telegram::Bot::Client.run(ENV['API_TOKEN']) do |bot|
       File.write(notes_file, "#{user_message}\n\n", mode: 'a')
 
       if (messages_count % 3).zero?
-        `cd #{notes_folder} && printf '\n' | git-magic -ap -m "Miko Notes"`
+        `cd #{notes_folder} && printf '\n' | git-magic -ap -m "Miko Notes Updated at #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"`
         pre_responses = ['mmm', 'eto', 'well', "that's", 'emm', 'you see']
         bot.api.send_message(chat_id: id, text: "#{pre_responses.sample}...")
       end
