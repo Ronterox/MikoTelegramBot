@@ -1,5 +1,5 @@
 services:
-  miko-telegram-bot:
+  service:
     restart: on-failure
     build:
       context: .
