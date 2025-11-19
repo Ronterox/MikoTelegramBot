@@ -12,10 +12,12 @@ def check_command(command)
 end
 
 users = {}
-requirements = %w[fdfind git-magic]
+requirements = %w[git-magic]
 requirements.each { |command| check_command(command) }
 
-notes_folder = `fdfind -1 ANX ~`.chomp
+`git config --global --add safe.directory /app/ANX`
+
+notes_folder = '/app/ANX'
 puts "Writing notes to folder #{notes_folder}"
 
 messages_count = 0
