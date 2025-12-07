@@ -6,6 +6,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ${ANX_PATH}:/app/ANX
-      - $HOME:/root:rw
     environment:
       API_TOKEN: ${API_TOKEN}
+      GH_TOKEN: ${GH_TOKEN}
