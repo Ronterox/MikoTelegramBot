@@ -18,7 +18,8 @@ requirements.each { |command| check_command(command) }
 `git config --global --add safe.directory /app/ANX`
 `git config --global user.email "miko@mikop.com"`
 `git config --global user.name "Miko Itself"`
-`gh auth login --with-token && gh auth setup-git`
+`gh auth login --with-token`
+`gh auth setup-git`
 
 notes_folder = '/app/ANX'
 puts "Writing notes to folder #{notes_folder}"
